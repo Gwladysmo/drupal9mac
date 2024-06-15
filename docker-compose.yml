@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   mariadb:
+    platform: linux/amd64
     image: wodby/mariadb:$MARIADB_TAG
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
@@ -15,6 +16,7 @@ services:
   #      - /path/to/mariadb/data/on/host:/var/lib/mysql # Use bind mount
 
   php:
+    platform: linux/amd64
     image: wodby/drupal-php:$PHP_TAG
     container_name: "${PROJECT_NAME}_php"
     environment:
@@ -54,6 +56,7 @@ services:
   #    - files:/mnt/files
 
   crond:
+    platform: linux/amd64
     image: wodby/drupal-php:$PHP_TAG
     container_name: "${PROJECT_NAME}_crond"
     environment:
@@ -65,6 +68,7 @@ services:
   #    - drupal:/var/www/html
 
   nginx:
+    platform: linux/amd64
     image: wodby/nginx:$NGINX_TAG
     container_name: "${PROJECT_NAME}_nginx"
     depends_on:
@@ -84,6 +88,7 @@ services:
       - "traefik.http.routers.${PROJECT_NAME}_nginx.rule=Host(`${PROJECT_BASE_URL}`)"
 
   mailhog:
+    platform: linux/amd64
     image: mailhog/mailhog
     container_name: "${PROJECT_NAME}_mailhog"
     labels:
@@ -280,6 +285,7 @@ services:
   #    - "--whitelisted-ips="
 
   traefik:
+    platform: linux/amd64
     image: traefik:v2.0
     container_name: "${PROJECT_NAME}_traefik"
     command: --api.insecure=true --providers.docker
